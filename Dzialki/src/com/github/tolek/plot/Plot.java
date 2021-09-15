@@ -10,37 +10,38 @@ public class Plot {
     public static int MAX_SIZE = 100;
     public static int MAX_PLOTS = 2;
 
+    public String name;
+    
     public int x;
     public int z;
     public int sizeX;
     public int sizeZ;
 
     public String admin;
-    public String name;
     public List<String> allowedUsers = new ArrayList<String>();
 
-    public Plot(int x, int z, int sizeX, int sizeZ, String admin, String name) throws Exception {
+    public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin) throws Exception {
         if (sizeX > MAX_SIZE || sizeZ > MAX_SIZE) {
             throw new Exception("Plot Too Large");
         }
+        this.name = name;
         this.x = x;
         this.z = z;
         this.sizeX = sizeX;
         this.sizeZ = sizeZ;
         this.admin = admin;
-        this.name = name;
     }
 
-    public Plot(int x, int z, int sizeX, int sizeZ, String admin, String name, List<String> allowedUsers) throws Exception {
+    public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin, List<String> allowedUsers) throws Exception {
         if (sizeX > MAX_SIZE || sizeZ > MAX_SIZE) {
             throw new Exception("Plot Too Large");
         }
+        this.name = name;
         this.x = x;
         this.z = z;
         this.sizeX = sizeX;
         this.sizeZ = sizeZ;
         this.admin = admin;
-        this.name = name;
         this.allowedUsers = allowedUsers;
     }
 
@@ -109,13 +110,14 @@ public class Plot {
 
     public static Plot importFromStorage(String line) throws Exception {
         String[] items = line.split("\\|");
-        return new Plot(Integer.parseInt(items[0]),
+        System.out.println(items);
+        return new Plot(items[0],
                 Integer.parseInt(items[1]),
                 Integer.parseInt(items[2]),
                 Integer.parseInt(items[3]),
-                items[4],
+                Integer.parseInt(items[4]),
                 items[5],
-                List.of(items[6].split("\\,")));
+                items.length < 7 ? new ArrayList<String>() : List.of(items[6].split("\\,")));
     }
 
     public String exportToString() {

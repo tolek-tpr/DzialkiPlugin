@@ -58,8 +58,8 @@ public class Commands implements CommandExecutor {
 
 			// create the plot
 			try {
-				plot = new Plot(player.getLocation().getBlockX(), player.getLocation().getBlockZ(),
-						Integer.parseInt(args[1]), Integer.parseInt(args[2]), player.getUniqueId().toString(), args[0]);
+				plot = new Plot(args[0], player.getLocation().getBlockX(), player.getLocation().getBlockZ(),
+						Integer.parseInt(args[1]), Integer.parseInt(args[2]), player.getUniqueId().toString());
 			} catch (Exception e) {
 				player.sendMessage(e.getMessage());
 				return false;
