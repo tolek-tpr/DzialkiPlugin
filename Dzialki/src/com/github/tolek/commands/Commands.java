@@ -1,7 +1,6 @@
 package com.github.tolek.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +21,7 @@ public class Commands implements CommandExecutor {
 
 	/*
 	 * /dz create /dz delete /dz add <nick> /dz remove <nick>
-	 * 
+	 *
 	 * I max ilosc slotow na dzialke 2
 	 */
 
@@ -53,7 +52,7 @@ public class Commands implements CommandExecutor {
 
 			// check if plot name unique
 			if (plots.getPlotbyName(args[0]) != null) {
-				player.sendMessage("Plot with that name alredy exists!");
+				player.sendMessage("A plot with that name already exists!");
 				return false;
 			}
 
@@ -89,7 +88,7 @@ public class Commands implements CommandExecutor {
 			break;
 		case ("dz_remove"):
 			plot = plots.getPlotbyName(args[1]);
-		if(plot.isOwnedBy(player)) {
+		if (plot.isOwnedBy(player)) {
 			plot.removeUser(args[0]);
 		}
 
