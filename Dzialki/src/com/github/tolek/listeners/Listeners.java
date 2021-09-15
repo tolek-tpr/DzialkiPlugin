@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -56,9 +57,19 @@ public class Listeners implements Listener {
 		int x = event.getBlock().getLocation().getBlockX();
 		int z = event.getBlock().getLocation().getBlockZ();
 		Plot plot = plots.getPlotByLocation(x, z);
-		if (plot != null && (!plot.isOwnedBy(p) || !plot.isAccessibleBy(p))) {
+		if (plot != null && !(plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
 			event.setCancelled(true);
 		}
 	}
-
+	
+	@EventHandler
+	public void onBlockPalce(BlockPlaceEvent event) {
+		Player p = (Player) event.getPlayer();
+		int x = event.getBlock().getLocation().getBlockX();
+		int z = event.getBlock().getLocation().getBlockZ();
+		Plot plot = plots.getPlotByLocation(x, z);
+		if(plot != null && !(plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
+			event.setCancelled(true);
+		}
+	}
 }
