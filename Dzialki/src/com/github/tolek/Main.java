@@ -11,11 +11,11 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin {
 
-	private Commands commands;
 	private PlotManager plots;
-	
-	private Listeners listeners = new Listeners(plots);
-	
+
+	private Commands commands;
+	private Listeners listeners;
+
 	public void onEnable() {
 		getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Działki plugin v1 enabling");
 		PluginManager pm = this.getServer().getPluginManager();
@@ -33,6 +33,8 @@ public class Main extends JavaPlugin {
 		this.getCommand("dz_delete").setExecutor(commands);
 		this.getCommand("dz_add").setExecutor(commands);
 		this.getCommand("dz_remove").setExecutor(commands);
+
+		listeners = new Listeners(plots);
 	}
 	
 	public void onDisable() {
