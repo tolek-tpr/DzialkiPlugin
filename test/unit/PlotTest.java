@@ -2,6 +2,7 @@ package com.github.tolek.plot.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
@@ -42,8 +43,10 @@ class PlotTest {
 	@Test
 	void testExportToString() {
 		try {
-			Plot plot = new Plot("test1", 0, 0, 10, 10 ,"owner", "user1", "user2");
-			//
+			Plot plot = new Plot("test1", 0, 0, 10, 10 ,"owner", List.of("user1", "user2"));
+			String actual = plot.exportToString();
+			String expected = "test1|0|0|10|10|owner|user1,user2";
+			assertEquals("Should format the plot for export", expected, actual);
 			assert.equals(plot.exportToString());
 		}
 	}
