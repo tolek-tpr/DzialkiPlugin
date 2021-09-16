@@ -30,6 +30,7 @@ public class PlotManager {
 		}
 		return null;
 	}
+	
 
 	public int getUserPlotCount(String user) {
 		int count = 0;

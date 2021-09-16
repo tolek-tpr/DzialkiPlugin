@@ -85,7 +85,7 @@ public class Plot {
     }
 
     public boolean isAccessibleBy(Player p) {
-        return p != null && allowedUsers.contains(p.getUniqueId().toString());
+        return allowedUsers.contains(p.getUniqueId().toString());
     }
 
     public boolean isAccessibleBy(String id) {

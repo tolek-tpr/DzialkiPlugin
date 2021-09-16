@@ -38,5 +38,14 @@ class PlotTest {
 			fail("Should not throw at plot creation");
 		}
 	}
+	
+	@Test
+	void testExportToString() {
+		try {
+			Plot plot = new Plot("test1", 0, 0, 10, 10 ,"owner", "user1", "user2");
+			//
+			assert.equals(plot.exportToString());
+		}
+	}
 
 }

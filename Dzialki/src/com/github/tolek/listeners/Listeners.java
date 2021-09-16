@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
@@ -57,7 +58,8 @@ public class Listeners implements Listener {
 		int x = event.getBlock().getLocation().getBlockX();
 		int z = event.getBlock().getLocation().getBlockZ();
 		Plot plot = plots.getPlotByLocation(x, z);
-		if (plot != null && !(plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
+
+		if (plot != null && !(p.isOp() || plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
 			event.setCancelled(true);
 		}
 	}
@@ -68,8 +70,23 @@ public class Listeners implements Listener {
 		int x = event.getBlock().getLocation().getBlockX();
 		int z = event.getBlock().getLocation().getBlockZ();
 		Plot plot = plots.getPlotByLocation(x, z);
-		if(plot != null && !(plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
+		if(plot != null && !(p.isOp() || plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
 			event.setCancelled(true);
 		}
+	}
+	
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event) {
+		boolean sent = false;
+		Player p = (Player) event.getPlayer();
+		int x = p.getLocation().getBlockX();
+		int z = p.getLocation().getBlockZ();
+		Plot plot = plots.getPlotByLocation(x, z);
+		
+		if(plot != null && !sent) {
+			p.sendMessage("entering " + plot.name);
+			sent = true;
+		}
+		
 	}
 }

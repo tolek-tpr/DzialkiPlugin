@@ -90,6 +90,7 @@ public class Commands implements CommandExecutor {
 			plot = plots.getPlotbyName(args[1]);
 		if (plot.isOwnedBy(player)) {
 			plot.removeUser(args[0]);
+			player.sendMessage("Removed player " + args[0] + " from plot: " + args[1]);
 		}
 
 			break;
