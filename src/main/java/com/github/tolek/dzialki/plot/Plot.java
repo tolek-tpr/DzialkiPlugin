@@ -102,9 +102,8 @@ public class Plot {
         return allowedUsers.remove(id);
     }
 
-    public static Plot importFromStorage(String line) throws Exception {
+    public static Plot importFromStorage(String line) {
         String[] items = line.split("\\|");
-        System.out.println(items);
         return new Plot(items[0],
                 Integer.parseInt(items[1]),
                 Integer.parseInt(items[2]),

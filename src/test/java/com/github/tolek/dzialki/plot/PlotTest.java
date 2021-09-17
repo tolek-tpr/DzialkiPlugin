@@ -34,6 +34,28 @@ class PlotTest {
     }
 
     @Test
+    void testIsAccessibleBy() {
+        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", List.of("user1", "user2"));
+        assertTrue(plot.isAccessibleBy("user1"), "Should return true when accessible by user1");
+        assertTrue(plot.isAccessibleBy("user2"), "Should return true when accessible by user2");
+        assertFalse(plot.isAccessibleBy("user3"), "Should return false when not accessible by user3");
+    }
+
+    @Test
+    void testImportFromStorage() {
+        String line = "test1|0|0|10|10|owner|user1,user2";
+        Plot plot = Plot.importFromStorage(line);
+        assertEquals("test1", plot.name);
+        assertEquals("owner", plot.owner);
+        assertEquals(0, plot.x);
+        assertEquals(0, plot.z);
+        assertEquals(10, plot.sizeX);
+        assertEquals(10, plot.sizeZ);
+        assertTrue(plot.allowedUsers.contains(("user1")));
+        assertTrue(plot.allowedUsers.contains(("user2")));
+    }
+
+    @Test
     void testExportToStorage() {
         Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", List.of("user1", "user2"));
         String actual = plot.exportToStorage();
