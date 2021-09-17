@@ -34,7 +34,8 @@ public class Commands implements CommandExecutor {
 		}
 
 		String playerId = player.getUniqueId().toString();
-		Plot plot;
+		int x = player.getLocation().getBlockX();
+		int z = player.getLocation().getBlockZ();
 
 		switch (label) {
 		case ("dz_create"):
@@ -57,21 +58,23 @@ public class Commands implements CommandExecutor {
 			}
 
 			// create the plot
-			try {
-				plot = new Plot(args[0], player.getLocation().getBlockX(), player.getLocation().getBlockZ(),
-						Integer.parseInt(args[1]), Integer.parseInt(args[2]), player.getUniqueId().toString());
-			} catch (Exception e) {
-				player.sendMessage(e.getMessage());
+			String name = args[0];
+			int sizeX = Integer.parseInt(args[1]);
+			int sizeZ = Integer.parseInt(args[2]);
+			if (sizeX > Plot.MAX_SIZE || sizeZ > Plot.MAX_SIZE) {
+				player.sendMessage("Plot too large, max size in either dimension is " + Plot.MAX_SIZE);
 				return false;
 			}
+			Plot plot = new Plot(name, x, z,
+					sizeX, sizeZ, playerId);
 
 			// add the plot to the list
 			if (plots.add(plot) == false) {
-				player.sendMessage("Plot overlapping!");
+				player.sendMessage("Plot overlaps with another plot");
 				return false;
 			}
 			player.sendMessage(ChatColor.GOLD + "Plot created! You have "
-					+ (Plot.MAX_PLOTS - plots.getUserPlotCount(playerId)) + " plots left");
+					+ (Plot.MAX_PLOTS - plots.getUserPlotCount(playerId)) + " more left");
 
 			break;
 		case ("dz_delete"):

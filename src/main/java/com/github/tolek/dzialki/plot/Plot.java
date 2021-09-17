@@ -11,7 +11,7 @@ public class Plot {
     public static int MAX_PLOTS = 2;
 
     public String name;
-    
+
     public int x;
     public int z;
     public int sizeX;
@@ -20,10 +20,7 @@ public class Plot {
     public String owner;
     public List<String> allowedUsers = new ArrayList<String>();
 
-    public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin) throws Exception {
-        if (sizeX > MAX_SIZE || sizeZ > MAX_SIZE) {
-            throw new Exception("Plot Too Large");
-        }
+    public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin) {
         this.name = name;
         this.x = x;
         this.z = z;
@@ -32,10 +29,7 @@ public class Plot {
         this.owner = admin;
     }
 
-    public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin, List<String> allowedUsers) throws Exception {
-        if (sizeX > MAX_SIZE || sizeZ > MAX_SIZE) {
-            throw new Exception("Plot Too Large");
-        }
+    public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin, List<String> allowedUsers) {
         this.name = name;
         this.x = x;
         this.z = z;

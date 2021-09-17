@@ -81,9 +81,8 @@ public class Listeners implements Listener {
         int x = p.getLocation().getBlockX();
         int z = p.getLocation().getBlockZ();
         Plot plot = plots.getPlotByLocation(x, z);
-
         if (plot != null) {
-            p.sendMessage("entering " + plot.name);
+            p.sendMessage("Entering " + plot.name);
         }
 
     }

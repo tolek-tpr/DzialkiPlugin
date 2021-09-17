@@ -2,6 +2,8 @@ package com.github.tolek.dzialki.plot;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlotTest {
@@ -26,23 +28,17 @@ class PlotTest {
 
     @Test
     void testIsOwnedBy() {
-        try {
-            Plot plot = new Plot("test1", 0, 0, 10, 10, "owner");
-            assertTrue(plot.isOwnedBy("owner"), "Should return true when owned by owner");
-            assertFalse(plot.isOwnedBy("some-other-player"), "Should return false when owned by someone else");
-        } catch (Exception e) {
-            fail("Should not throw at plot creation");
-        }
+        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner");
+        assertTrue(plot.isOwnedBy("owner"), "Should return true when owned by owner");
+        assertFalse(plot.isOwnedBy("some-other-player"), "Should return false when owned by someone else");
     }
 
     @Test
     void testExportToStorage() {
-        try {
-            Plot plot = new Plot("test1", 0, 0, 10, 10 ,"owner", List.of("user1", "user2"));
-            String actual = plot.exportToStorage();
-            String expected = "test1|0|0|10|10|owner|user1,user2";
-            assertEquals("Should format the plot for export", expected, actual);
-        }
+        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", List.of("user1", "user2"));
+        String actual = plot.exportToStorage();
+        String expected = "test1|0|0|10|10|owner|user1,user2";
+        assertEquals(expected, actual, "Should format the plot for export");
     }
 
 }
