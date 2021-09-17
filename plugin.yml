@@ -5,10 +5,10 @@ author: tolek_pro
 api-version: 1.17
 
 commands:
-  dz_create:
-  getlist:
-  dz_max_size:
-  dz_max_plots:
-  dz_delete:
-  dz_add:
-  dz_remove:
+  dzlist:
+  dzcreate:
+  dzremove:
+  dzinvite:
+  dzban:
+  dzsetmaxsize:
+  dzsetmaxplots:
