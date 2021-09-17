@@ -1,4 +1,4 @@
-package com.github.tolek.listeners;
+package com.github.tolek.dzialki.listeners;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -77,15 +77,14 @@ public class Listeners implements Listener {
 	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
-		boolean sent = false;
+
 		Player p = (Player) event.getPlayer();
 		int x = p.getLocation().getBlockX();
 		int z = p.getLocation().getBlockZ();
 		Plot plot = plots.getPlotByLocation(x, z);
 		
-		if(plot != null && !sent) {
+		if(plot != null) {
 			p.sendMessage("entering " + plot.name);
-			sent = true;
 		}
 		
 	}

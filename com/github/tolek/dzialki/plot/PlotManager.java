@@ -1,4 +1,4 @@
-package com.github.tolek.plot;
+package com.github.tolek.dzialki.plot;
 
 import java.io.File;
 import java.io.FileNotFoundException;

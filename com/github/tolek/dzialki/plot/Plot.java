@@ -1,4 +1,4 @@
-package com.github.tolek.plot;
+package com.github.tolek.dzialki.plot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,15 +77,15 @@ public class Plot {
     }
 
     public boolean isOwnedBy(Player p) {
-        return admin.equals(p.getUniqueId().toString());
+        return p != null && admin.equals(p.getUniqueId().toString());
     }
 
     public boolean isOwnedBy(String id) {
-        return admin.equals(id);
+        return id != null && admin.equals(id);
     }
 
     public boolean isAccessibleBy(Player p) {
-        return allowedUsers.contains(p.getUniqueId().toString());
+        return p != null && allowedUsers.contains(p.getUniqueId().toString());
     }
 
     public boolean isAccessibleBy(String id) {

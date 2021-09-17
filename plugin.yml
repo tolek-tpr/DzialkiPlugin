@@ -1,4 +1,4 @@
-main: com.github.tolek.Main
+main: com.github.tolek.dzialki.Main
 version: 1.0.0
 name: dzialki
 author: tolek_pro

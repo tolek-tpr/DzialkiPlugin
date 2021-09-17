@@ -1,4 +1,4 @@
-package com.github.tolek.plot.test;
+package com.github.tolek.dzialki.plot.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

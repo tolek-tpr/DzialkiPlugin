@@ -1,4 +1,4 @@
-package com.github.tolek.commands;
+package com.github.tolek.dzialki.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
