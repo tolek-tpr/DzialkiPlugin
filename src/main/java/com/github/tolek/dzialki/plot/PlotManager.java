@@ -1,4 +1,4 @@
-package com.github.tolek.plot;
+package com.github.tolek.dzialki.plot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +18,7 @@ public class PlotManager {
 	public boolean add(Plot p) {
 		return plotExists(p) == null ? plots.add(p) : false;
 	}
-	
+
 	public boolean remove(Plot p) {
 		return plots.remove(p);
 	}
@@ -34,7 +34,7 @@ public class PlotManager {
 	public int getUserPlotCount(String user) {
 		int count = 0;
 		for (Plot p : plots) {
-			if (user.equals(p.admin)) {
+			if (user.equals(p.owner)) {
 				count++;
 			}
 		}
@@ -48,7 +48,7 @@ public class PlotManager {
 		}
 		return null;
 	}
-	
+
 	public Plot getPlotByLocation(int x, int z) {
 		for (Plot p : plots) {
 			if (p.overlaps(x, z))
@@ -58,7 +58,7 @@ public class PlotManager {
 	}
 
 	public void save() {
-		String data = plots.stream().map(Plot::exportToString).collect(Collectors.joining("\n"));
+		String data = plots.stream().map(Plot::exportToStorage).collect(Collectors.joining("\n"));
 		System.out.println("Saving file\n" + data);
 		try {
 			FileOutputStream writer = new FileOutputStream(FILE_NAME, false);

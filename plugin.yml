@@ -1,14 +1,14 @@
-main: com.github.tolek.Main
+main: com.github.tolek.dzialki.Main
 version: 1.0.0
 name: dzialki
 author: tolek_pro
 api-version: 1.17
 
 commands:
+  dz_list:
   dz_create:
-  getlist:
+  dz_remove:
+  dz_invite:
+  dz_ban:
   dz_max_size:
   dz_max_plots:
-  dz_delete:
-  dz_add:
-  dz_remove:
