@@ -18,7 +18,7 @@ public class PlotManager {
 	public boolean add(Plot p) {
 		return plotExists(p) == null ? plots.add(p) : false;
 	}
-	
+
 	public boolean remove(Plot p) {
 		return plots.remove(p);
 	}
@@ -30,7 +30,6 @@ public class PlotManager {
 		}
 		return null;
 	}
-	
 
 	public int getUserPlotCount(String user) {
 		int count = 0;
@@ -49,7 +48,7 @@ public class PlotManager {
 		}
 		return null;
 	}
-	
+
 	public Plot getPlotByLocation(int x, int z) {
 		for (Plot p : plots) {
 			if (p.overlaps(x, z))

@@ -1,7 +1,7 @@
 package com.github.tolek.dzialki.commands;
 
 import com.github.tolek.dzialki.plot.PlotManager;
-;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

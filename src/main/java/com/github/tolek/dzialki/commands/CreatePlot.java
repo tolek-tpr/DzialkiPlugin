@@ -24,19 +24,18 @@ public class CreatePlot implements CommandExecutor {
             return false;
         }
         Player player = (Player) sender;
-        String playerId = player.getUniqueId().toString();
+        String playerName = player.getName().toString();
         int x = player.getLocation().getBlockX();
         int z = player.getLocation().getBlockZ();
 
-        for (int n = 0; n <= 2; ++n) {
-            if (args[n] == null || !args[n].isEmpty()) {
-                player.sendMessage("Parameter " + n + " missing, usage: /dz_create [name] [sizeX] [sizeZ]");
-                return false;
-            }
+        if(args.length != 3) {
+            player.sendMessage("Parameter missing, usage: /dz_create [name] [sizeX] [sizeZ]");
+            return false;
         }
+        
 
         // check for max allowed plots count
-        if (plots.getUserPlotCount(playerId) >= Plot.MAX_PLOTS) {
+        if (plots.getUserPlotCount(playerName) >= Plot.MAX_PLOTS) {
             player.sendMessage(
                     ChatColor.RED + "" + ChatColor.BOLD + "You have 0 plots left (max " + Plot.MAX_PLOTS + ")");
             return false;
@@ -56,14 +55,14 @@ public class CreatePlot implements CommandExecutor {
             player.sendMessage("Plot too large, max size in either dimension is " + Plot.MAX_SIZE);
             return false;
         }
-        Plot plot = new Plot(name, x, z, sizeX, sizeZ, playerId);
+        Plot plot = new Plot(name, x, z, sizeX, sizeZ, playerName);
 
         // add the plot to the list
         if (plots.add(plot) == false) {
             player.sendMessage("Plot overlaps with another plot");
             return false;
         }
-        player.sendMessage(ChatColor.GOLD + "Plot created! You have " + (Plot.MAX_PLOTS - plots.getUserPlotCount(playerId)) + " more left");
+        player.sendMessage(ChatColor.GOLD + "Plot created! You have " + (Plot.MAX_PLOTS - plots.getUserPlotCount(playerName)) + " more left");
         return true;
     }
 
