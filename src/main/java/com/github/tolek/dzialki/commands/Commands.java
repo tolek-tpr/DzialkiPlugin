@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.github.tolek.plot.Plot;
-import com.github.tolek.plot.PlotManager;
+import com.github.tolek.dzialki.plot.Plot;
+import com.github.tolek.dzialki.plot.PlotManager;
 
 import net.md_5.bungee.api.ChatColor;
 

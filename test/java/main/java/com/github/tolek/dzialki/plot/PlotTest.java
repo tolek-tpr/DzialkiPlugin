@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.tolek.plot.Plot;
+import com.github.tolek.dzialki.plot.Plot;
 
 class PlotTest {
 
@@ -41,13 +41,12 @@ class PlotTest {
 	}
 	
 	@Test
-	void testExportToString() {
+	void testExportToStorage() {
 		try {
 			Plot plot = new Plot("test1", 0, 0, 10, 10 ,"owner", List.of("user1", "user2"));
-			String actual = plot.exportToString();
+			String actual = plot.exportToStorage();
 			String expected = "test1|0|0|10|10|owner|user1,user2";
 			assertEquals("Should format the plot for export", expected, actual);
-			assert.equals(plot.exportToString());
 		}
 	}
 

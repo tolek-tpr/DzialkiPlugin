@@ -17,7 +17,7 @@ public class Plot {
     public int sizeX;
     public int sizeZ;
 
-    public String admin;
+    public String owner;
     public List<String> allowedUsers = new ArrayList<String>();
 
     public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin) throws Exception {
@@ -29,7 +29,7 @@ public class Plot {
         this.z = z;
         this.sizeX = sizeX;
         this.sizeZ = sizeZ;
-        this.admin = admin;
+        this.owner = admin;
     }
 
     public Plot(String name, int x, int z, int sizeX, int sizeZ, String admin, List<String> allowedUsers) throws Exception {
@@ -41,7 +41,7 @@ public class Plot {
         this.z = z;
         this.sizeX = sizeX;
         this.sizeZ = sizeZ;
-        this.admin = admin;
+        this.owner = admin;
         this.allowedUsers = allowedUsers;
     }
 
@@ -77,11 +77,11 @@ public class Plot {
     }
 
     public boolean isOwnedBy(Player p) {
-        return p != null && admin.equals(p.getUniqueId().toString());
+        return p != null && owner.equals(p.getUniqueId().toString());
     }
 
     public boolean isOwnedBy(String id) {
-        return id != null && admin.equals(id);
+        return owner.equals(id);
     }
 
     public boolean isAccessibleBy(Player p) {
@@ -97,7 +97,7 @@ public class Plot {
     }
 
     public boolean addUser(String id) {
-        return "".equals(id) && allowedUsers.add(id);
+        return !"".equals(id) && allowedUsers.add(id);
     }
 
     public boolean removeUser(Player p) {
@@ -120,12 +120,12 @@ public class Plot {
                 items.length < 7 ? new ArrayList<String>() : List.of(items[6].split("\\,")));
     }
 
-    public String exportToString() {
-        return String.join("|", name, String.valueOf(x), String.valueOf(z), String.valueOf(sizeX), String.valueOf(sizeZ), admin, String.join(",", allowedUsers));
+    public String exportToStorage() {
+        return String.join("|", name, String.valueOf(x), String.valueOf(z), String.valueOf(sizeX), String.valueOf(sizeZ), owner, String.join(",", allowedUsers));
     }
 
     public String toString() {
-        return name + " [" + x + ":" + z + "][" + sizeX + ":" + sizeZ + "] by " + admin;
+        return name + " [" + x + ":" + z + "][" + sizeX + ":" + sizeZ + "] by " + owner;
     }
 
 }

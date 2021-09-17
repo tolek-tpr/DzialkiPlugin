@@ -3,24 +3,24 @@ package com.github.tolek.dzialki;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.tolek.commands.Commands;
-import com.github.tolek.listeners.Listeners;
-import com.github.tolek.plot.PlotManager;
+import com.github.tolek.dzialki.commands.Commands;
+import com.github.tolek.dzialki.listeners.Listeners;
+import com.github.tolek.dzialki.plot.PlotManager;
 
 import net.md_5.bungee.api.ChatColor;
 
 public class Main extends JavaPlugin {
 
-	private PlotManager plots = new PlotManager();
+	private PlotManager plots;
 
 	private Commands commands;
 	private Listeners listeners;
 
-	
+
 	public void onEnable() {
 		getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Działki plugin v1 enabling");
 		PluginManager pm = this.getServer().getPluginManager();
-				
+
 		plots.load();
 		System.out.println(plots.toString());
 
@@ -37,10 +37,10 @@ public class Main extends JavaPlugin {
 		pm.registerEvents(listeners, this);
 
 	}
-	
+
 	public void onDisable() {
 		plots.save();
 		getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Działki plugin v1 disabling");
 	}
-	
+
 }
