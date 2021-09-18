@@ -13,3 +13,4 @@ commands:
   dz_max_size:
   dz_max_plots:
   getsize:
+  dz_help:
