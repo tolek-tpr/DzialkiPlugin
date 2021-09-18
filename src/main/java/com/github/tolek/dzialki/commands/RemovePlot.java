@@ -26,7 +26,7 @@ public class RemovePlot implements CommandExecutor {
 			sender.sendMessage("You don't own this plot");
 			return false;
 		}
-
+		player.sendMessage("Removed plot.");
 		return plots.remove(plot);
 	}
 }
