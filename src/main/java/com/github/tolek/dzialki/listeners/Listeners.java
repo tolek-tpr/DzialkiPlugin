@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -31,8 +32,8 @@ public class Listeners implements Listener {
 	}
 
 	final static String[][] bookPages = { {
-			"All functions: \n /dz_create <name> <size> <size>\n /dz_delete <name>\n /dz_add <player> <plot>\n /dz_remove <player> <plot>\n\n\nPlugin made by: Tolek_pro" },
-			{ "/dz_add <plot> <user>\n /dz_remove <plot> <user>" }, { "YT channels: @INIVIX\n BY @Tolek Pro" } };
+			"All functions: \n /dz_create <name> <size> <size>\n /dz_remove <name>\n /dz_invite <player> <plot>\n /dz_ban <player> <plot>\n\n\nPlugin made by: Tolek_pro" },
+			{ "YT channels: @INIVIX\n BY @Tolek Pro" } };
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
@@ -92,5 +93,16 @@ public class Listeners implements Listener {
 			p.sendMessage(ChatColor.RED + "Leaving " + previousPlots.get(p.getName()).name);
 		}
 		previousPlots.put(p.getName(), plot);
+	}
+	
+	@EventHandler
+	public void playerInteractEvent(PlayerInteractEvent event) {
+		Player p = (Player) event.getPlayer();
+		int x = event.getClickedBlock().getX();
+		int z = event.getClickedBlock().getZ();
+		Plot plot = plots.getPlotByLocation(x, z);
+		if (plot != null && !(p.isOp() || plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
+			event.setCancelled(true);
+		}		
 	}
 }

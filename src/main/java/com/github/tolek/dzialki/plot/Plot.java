@@ -1,7 +1,10 @@
 package com.github.tolek.dzialki.plot;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.bukkit.entity.Player;
 
@@ -18,8 +21,7 @@ public class Plot {
 	public int sizeZ;
 
 	public String owner;
-	public List<String> allowedUsers = new ArrayList<String>();
-
+	public List<String> allowedUsers = new LinkedList<String>();
 	public Plot(String name, int x, int z, int sizeX, int sizeZ, String owner) {
 		this.name = name;
 		this.x = x;
@@ -95,18 +97,19 @@ public class Plot {
 	}
 
 	public boolean removeUser(Player p) {
-		return allowedUsers.remove(p.getName());
+		return p != null && allowedUsers.remove(p.getName());
 	}
 
 	public boolean removeUser(String name) {
-		return allowedUsers.remove(name);
+		return name != null && allowedUsers.remove(name);
 	}
 
 	public static Plot importFromStorage(String line) {
 		String[] items = line.split("\\|");
+		List<String> allowedUsers = items.length < 7 ? new LinkedList<String>()
+				: Stream.of(items[6].split("\\,")).collect(Collectors.toList());
 		return new Plot(items[0], Integer.parseInt(items[1]), Integer.parseInt(items[2]), Integer.parseInt(items[3]),
-				Integer.parseInt(items[4]), items[5],
-				items.length < 7 ? new ArrayList<String>() : List.of(items[6].split("\\,")));
+				Integer.parseInt(items[4]), items[5], allowedUsers);
 	}
 
 	public String exportToStorage() {

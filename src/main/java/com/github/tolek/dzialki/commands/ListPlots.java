@@ -9,21 +9,22 @@ import org.bukkit.entity.Player;
 
 public class ListPlots implements CommandExecutor {
 
-    private PlotManager plots;
+	private PlotManager plots;
 
-    public ListPlots(PlotManager plots) {
-        this.plots = plots;
-    }
+	public ListPlots(PlotManager plots) {
+		this.plots = plots;
+	}
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!sender.isOp()) return false;
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (!sender.isOp())
+			return false;
 
-        if (sender instanceof Player) {
-            sender.sendMessage(plots.toString());
-        } else {
-            System.out.println(plots.toString());
-        }
-        return true;
-    }
+		if (sender instanceof Player) {
+			sender.sendMessage(plots.toString());
+		} else {
+			System.out.println(plots.toString());
+		}
+		return true;
+	}
 }

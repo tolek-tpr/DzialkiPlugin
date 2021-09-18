@@ -17,15 +17,16 @@ public class RemovePlot implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)) return false;
-        Player player = (Player) sender;
-        Plot plot = plots.getPlotbyName(args[0]);
-        if (!plot.isOwnedBy(player) && !player.isOp()) {
-            sender.sendMessage("You don't own this plot");
-            return false;
-        }
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (!(sender instanceof Player))
+			return false;
+		Player player = (Player) sender;
+		Plot plot = plots.getPlotbyName(args[0]);
+		if (!plot.isOwnedBy(player) && !player.isOp()) {
+			sender.sendMessage("You don't own this plot");
+			return false;
+		}
 
-        return plots.remove(plot);
-    }
+		return plots.remove(plot);
+	}
 }
