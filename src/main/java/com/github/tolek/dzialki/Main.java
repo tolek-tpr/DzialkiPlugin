@@ -8,6 +8,7 @@ import com.github.tolek.dzialki.commands.CreatePlot;
 import com.github.tolek.dzialki.commands.GetSize;
 import com.github.tolek.dzialki.commands.InviteUser;
 import com.github.tolek.dzialki.commands.ListPlots;
+import com.github.tolek.dzialki.commands.PlayerHelp;
 import com.github.tolek.dzialki.commands.RemovePlot;
 import com.github.tolek.dzialki.commands.SetMaxPlots;
 import com.github.tolek.dzialki.commands.SetMaxSize;
@@ -40,6 +41,7 @@ public class Main extends JavaPlugin {
 		this.getCommand("dz_max_size").setExecutor(new SetMaxSize(plots));
 		this.getCommand("dz_max_plots").setExecutor(new SetMaxPlots(plots));
 		this.getCommand("getsize").setExecutor(new GetSize());
+		this.getCommand("dz_help").setExecutor(new PlayerHelp());
 
 		Listeners listeners = new Listeners(plots);
 		pm.registerEvents(listeners, this);

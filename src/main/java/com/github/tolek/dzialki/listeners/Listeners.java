@@ -32,8 +32,8 @@ public class Listeners implements Listener {
 	}
 
 	final static String[][] bookPages = { {
-			"All functions: \n /dz_create <name> <size> <size>\n /dz_remove <name>\n /dz_invite <player> <plot>\n /dz_ban <player> <plot>\n\n\nPlugin made by: Tolek_pro" },
-			{ "YT channels: @INIVIX\n BY @Tolek Pro" } };
+			"for a list of all commands do /dz_help" },
+			{ "Made by @Tolek Pro on youtube" } };
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
