@@ -10,6 +10,9 @@ public class GetSize implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if(!sender.isOp()) {
+			return false;
+		}
 		sender.sendMessage("Max size: " + Plot.MAX_SIZE + " Max plots: " + Plot.MAX_PLOTS);
 		return false;
 	}
