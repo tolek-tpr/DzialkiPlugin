@@ -20,7 +20,15 @@ public class BanUser implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) return false;
         Player player = (Player) sender;
+        if(args.length != 2 || args[0].isEmpty() || "".equals(args[0]) || args[1].isEmpty() || "".equals(args[1])) {
+        	player.sendMessage("Parameter missing, usage: /dz_ban [name] [plot]");
+            return false;
+        }
         Plot plot = plots.getPlotbyName(args[1]);
+        if(plot == null) {
+        	player.sendMessage("Plot does not exists!");
+        	return false;
+        }
         if (!plot.isOwnedBy(player) && !player.isOp()) {
             sender.sendMessage("You don't own this plot");
             return false;

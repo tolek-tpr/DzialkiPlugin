@@ -12,3 +12,4 @@ commands:
   dz_ban:
   dz_max_size:
   dz_max_plots:
+  getsize:
