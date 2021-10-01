@@ -11,7 +11,7 @@ class PlotTest {
     @Test
     void testOverlaps() {
         try {
-            Plot plot = new Plot("test1", 0, 0, 10, 10, "player1");
+            Plot plot = new Plot("test1", 0, 0, 10, 10, "player1", "");
             assertFalse(plot.overlaps(-1, -1), "Should return false when outside of plot area to the left/top");
             assertFalse(plot.overlaps(11, -1), "Should return false when outside of plot area to the right/top");
             assertFalse(plot.overlaps(11, -1), "Should return false when outside of plot area to the left/bottom");
@@ -28,14 +28,14 @@ class PlotTest {
 
     @Test
     void testIsOwnedBy() {
-        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner");
+        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", "");
         assertTrue(plot.isOwnedBy("owner"), "Should return true when owned by owner");
         assertFalse(plot.isOwnedBy("some-other-player"), "Should return false when owned by someone else");
     }
 
     @Test
     void testIsAccessibleBy() {
-        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", List.of("user1", "user2"));
+        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", "", List.of("user1", "user2"));
         assertTrue(plot.isAccessibleBy("user1"), "Should return true when accessible by user1");
         assertTrue(plot.isAccessibleBy("user2"), "Should return true when accessible by user2");
         assertFalse(plot.isAccessibleBy("user3"), "Should return false when not accessible by user3");
@@ -43,10 +43,11 @@ class PlotTest {
 
     @Test
     void testImportFromStorage() {
-        String line = "test1|0|0|10|10|owner|user1,user2";
+        String line = "test1|0|0|10|10|owner||user1,user2";
         Plot plot = Plot.importFromStorage(line);
         assertEquals("test1", plot.name);
         assertEquals("owner", plot.owner);
+        assertEquals("", plot.type);
         assertEquals(0, plot.x);
         assertEquals(0, plot.z);
         assertEquals(10, plot.sizeX);
@@ -57,9 +58,9 @@ class PlotTest {
 
     @Test
     void testExportToStorage() {
-        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", List.of("user1", "user2"));
+        Plot plot = new Plot("test1", 0, 0, 10, 10, "owner", "", List.of("user1", "user2"));
         String actual = plot.exportToStorage();
-        String expected = "test1|0|0|10|10|owner|user1,user2";
+        String expected = "test1|0|0|10|10|owner||user1,user2";
         assertEquals(expected, actual, "Should format the plot for export");
     }
 
