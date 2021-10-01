@@ -14,3 +14,7 @@ commands:
   dz_max_plots:
   getsize:
   dz_help:
+  setplottype:
+  dz_save:
+  dz_load:
+  dz_tp:

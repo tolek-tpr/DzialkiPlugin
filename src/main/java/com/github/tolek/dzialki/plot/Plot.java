@@ -14,6 +14,7 @@ public class Plot {
 	public static int MAX_PLOTS = 2;
 
 	public String name;
+	public Type type;
 
 	public int x;
 	public int z;
@@ -22,22 +23,24 @@ public class Plot {
 
 	public String owner;
 	public List<String> allowedUsers = new LinkedList<String>();
-	public Plot(String name, int x, int z, int sizeX, int sizeZ, String owner) {
+	public Plot(String name, int x, int z, int sizeX, int sizeZ, String owner, Type type) {
 		this.name = name;
 		this.x = x;
 		this.z = z;
 		this.sizeX = sizeX;
 		this.sizeZ = sizeZ;
 		this.owner = owner;
+		this.type = type;
 	}
 
-	public Plot(String name, int x, int z, int sizeX, int sizeZ, String owner, List<String> allowedUsers) {
+	public Plot(String name, int x, int z, int sizeX, int sizeZ, String owner, Type type, List<String> allowedUsers) {
 		this.name = name;
 		this.x = x;
 		this.z = z;
 		this.sizeX = sizeX;
 		this.sizeZ = sizeZ;
 		this.owner = owner;
+		this.type = type;
 		this.allowedUsers = allowedUsers;
 	}
 
@@ -88,6 +91,10 @@ public class Plot {
 		return name != null && allowedUsers.contains(name);
 	}
 
+	public Type getPlotType(Plot p) { return p.type; }
+
+	public void setPlotType(Type type) { this.type = type; }
+
 	public boolean addUser(Player p) {
 		return p != null && allowedUsers.add(p.getName());
 	}
@@ -106,19 +113,36 @@ public class Plot {
 
 	public static Plot importFromStorage(String line) {
 		String[] items = line.split("\\|");
-		List<String> allowedUsers = items.length < 7 ? new LinkedList<String>()
-				: Stream.of(items[6].split("\\,")).collect(Collectors.toList());
+		Type type = items.length < 7 ? Type.NONE : Type.valueOf(items[6]);
+		List<String> allowedUsers = items.length < 8 ? new LinkedList<String>()
+				: Stream.of(items[7].split("\\,")).collect(Collectors.toList());
 		return new Plot(items[0], Integer.parseInt(items[1]), Integer.parseInt(items[2]), Integer.parseInt(items[3]),
-				Integer.parseInt(items[4]), items[5], allowedUsers);
+				Integer.parseInt(items[4]), items[5], type, allowedUsers);
 	}
 
 	public String exportToStorage() {
 		return String.join("|", name, String.valueOf(x), String.valueOf(z), String.valueOf(sizeX),
-				String.valueOf(sizeZ), owner, String.join(",", allowedUsers));
+				String.valueOf(sizeZ), owner, type == null ? "" : type.toString(), String.join(",", allowedUsers));
 	}
 
 	public String toString() {
-		return name + " [" + x + ":" + z + "][" + sizeX + ":" + sizeZ + "] by " + owner;
+		return name + " [" + x + ":" + z + "][" + sizeX + ":" + sizeZ + "] by " + owner + " type " + type;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

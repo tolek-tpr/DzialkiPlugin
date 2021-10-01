@@ -1,17 +1,9 @@
 package com.github.tolek.dzialki;
 
+import com.github.tolek.dzialki.commands.*;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.tolek.dzialki.commands.BanUser;
-import com.github.tolek.dzialki.commands.CreatePlot;
-import com.github.tolek.dzialki.commands.GetSize;
-import com.github.tolek.dzialki.commands.InviteUser;
-import com.github.tolek.dzialki.commands.ListPlots;
-import com.github.tolek.dzialki.commands.PlayerHelp;
-import com.github.tolek.dzialki.commands.RemovePlot;
-import com.github.tolek.dzialki.commands.SetMaxPlots;
-import com.github.tolek.dzialki.commands.SetMaxSize;
 import com.github.tolek.dzialki.listeners.Listeners;
 import com.github.tolek.dzialki.plot.Plot;
 import com.github.tolek.dzialki.plot.PlotManager;
@@ -28,6 +20,7 @@ public class Main extends JavaPlugin {
 		getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Dzialki plugin v1 enabling");
 		PluginManager pm = this.getServer().getPluginManager();
 
+		plots.removeAll();
 		plots.load();
 		settings.load();
 		System.out.println(plots.toString());
@@ -40,8 +33,12 @@ public class Main extends JavaPlugin {
 		this.getCommand("dz_ban").setExecutor(new BanUser(plots));
 		this.getCommand("dz_max_size").setExecutor(new SetMaxSize(plots));
 		this.getCommand("dz_max_plots").setExecutor(new SetMaxPlots(plots));
+		this.getCommand("dz_save").setExecutor(new Save(plots));
+		this.getCommand("dz_tp").setExecutor(new Teleport(plots));
+
 		this.getCommand("getsize").setExecutor(new GetSize());
 		this.getCommand("dz_help").setExecutor(new PlayerHelp());
+		this.getCommand("setplottype").setExecutor(new SetPlotType(plots));
 
 		Listeners listeners = new Listeners(plots);
 		pm.registerEvents(listeners, this);

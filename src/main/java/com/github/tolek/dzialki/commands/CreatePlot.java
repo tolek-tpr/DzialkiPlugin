@@ -2,6 +2,7 @@ package com.github.tolek.dzialki.commands;
 
 import com.github.tolek.dzialki.plot.Plot;
 import com.github.tolek.dzialki.plot.PlotManager;
+import com.github.tolek.dzialki.plot.Type;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -54,7 +55,7 @@ public class CreatePlot implements CommandExecutor {
 			player.sendMessage("Plot too large, max size in either dimension is " + Plot.MAX_SIZE);
 			return false;
 		}
-		Plot plot = new Plot(name, x, z, sizeX, sizeZ, playerName);
+		Plot plot = new Plot(name, x, z, sizeX, sizeZ, playerName, Type.NONE);
 
 		// add the plot to the list
 		if (plots.add(plot) == false) {
