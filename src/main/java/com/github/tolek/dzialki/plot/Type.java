@@ -2,7 +2,10 @@ package com.github.tolek.dzialki.plot;
 
 public enum Type {
     NONE("NONE"),
-    STORE("STORE");
+    STORE("STORE"),
+    BLACKSMITH("BLACKSMITH"),
+    HOSPITAL("HOSPITAL"),
+    ESTATEAGENCY("ESTATEAGENCY");
 
     private String name;
 

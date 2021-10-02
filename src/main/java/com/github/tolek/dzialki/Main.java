@@ -41,7 +41,9 @@ public class Main extends JavaPlugin {
 		this.getCommand("setplottype").setExecutor(new SetPlotType(plots));
 
 		Listeners listeners = new Listeners(plots);
+		com.github.tolek.dzialki.functions.listeners.Listeners l = new com.github.tolek.dzialki.functions.listeners.Listeners(plots);
 		pm.registerEvents(listeners, this);
+		pm.registerEvents(l, this);
 
 	}
 

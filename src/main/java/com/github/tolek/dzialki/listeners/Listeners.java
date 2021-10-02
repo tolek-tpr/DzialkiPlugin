@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
@@ -101,8 +102,10 @@ public class Listeners implements Listener {
 		int x = event.getClickedBlock().getX();
 		int z = event.getClickedBlock().getZ();
 		Plot plot = plots.getPlotByLocation(x, z);
+
 		if (plot != null && !(p.isOp() || plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
 			event.setCancelled(true);
 		}		
 	}
+
 }
