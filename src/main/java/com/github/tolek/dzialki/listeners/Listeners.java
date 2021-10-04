@@ -2,14 +2,19 @@ package com.github.tolek.dzialki.listeners;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+
+import com.github.tolek.dzialki.plot.Type;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -25,6 +30,7 @@ import com.github.tolek.dzialki.plot.PlotManager;
 public class Listeners implements Listener {
 
 	private PlotManager plots;
+	private Inventory hinv;
 
 	private HashMap<String, Plot> previousPlots = new HashMap<String, Plot>();
 
@@ -98,14 +104,51 @@ public class Listeners implements Listener {
 	
 	@EventHandler
 	public void playerInteractEvent(PlayerInteractEvent event) {
-		Player p = (Player) event.getPlayer();
+		Player player = (Player) event.getPlayer();
 		int x = event.getClickedBlock().getX();
 		int z = event.getClickedBlock().getZ();
 		Plot plot = plots.getPlotByLocation(x, z);
 
-		if (plot != null && !(p.isOp() || plot.isOwnedBy(p) || plot.isAccessibleBy(p))) {
+		if (plot != null && !(player.isOp() || plot.isOwnedBy(player) || plot.isAccessibleBy(player)) && plot.type == Type.NONE) {
 			event.setCancelled(true);
-		}		
+		}
+		if (plot == null) return;
+
+		// check if owner/added user is on the plot
+		Set<Player> staff = Bukkit.getServer().getOnlinePlayers().stream()
+				.filter(p -> plot.owner.equals(p.getName()) || plot.allowedUsers.contains(p.getName()))
+				.filter(p -> plot.overlaps((int) p.getLocation().getX(), (int) p.getLocation().getZ()))
+				.collect(Collectors.toSet());
+
+		if(plot.type == Type.HOSPITAL && event.getClickedBlock().getType().equals(Material.CHEST)) {
+			event.setCancelled(true);
+
+			player.openInventory(hinv);
+			player.sendMessage("Working");
+		}
+		if(staff.size() == 0) {
+			player.sendMessage("No staff here");
+		}
+
+
+		if (staff.size() == 0) return;
+		player.sendMessage("test");
+	}
+
+	public void makeNewHospitalInv() {
+		int slot = 54;
+		hinv = Bukkit.createInventory(null, slot, ChatColor.GOLD + "Hospital");
+
+		ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+		//hinv.setItem(0, filler);
+		for(int i = 0; i < slot - 1; i++) {
+			if(i == 53) {
+				ItemStack barrier = new ItemStack(Material.BARRIER);
+				hinv.setItem(53, barrier);
+				i++;
+			}
+			hinv.setItem(i, filler);
+		}
 	}
 
 }

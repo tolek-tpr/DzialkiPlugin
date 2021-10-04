@@ -93,7 +93,10 @@ public class Plot {
 
 	public Type getPlotType(Plot p) { return p.type; }
 
-	public void setPlotType(Type type) { this.type = type; }
+	public void setPlotType(String type) { this.type = Type.valueOf(type);
+
+
+	}
 
 	public boolean addUser(Player p) {
 		return p != null && allowedUsers.add(p.getName());

@@ -5,7 +5,7 @@ public enum Type {
     STORE("STORE"),
     BLACKSMITH("BLACKSMITH"),
     HOSPITAL("HOSPITAL"),
-    ESTATEAGENCY("ESTATEAGENCY");
+    ESTATE_AGENCY("ESTATE_AGENCY");
 
     private String name;
 
