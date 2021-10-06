@@ -17,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -26,6 +27,7 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import com.github.tolek.dzialki.plot.Plot;
 import com.github.tolek.dzialki.plot.PlotManager;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class Listeners implements Listener {
 
@@ -37,6 +39,7 @@ public class Listeners implements Listener {
 	public Listeners(PlotManager plots) {
 		this.plots = plots;
 	}
+	private boolean hospitalGold = false;
 
 	final static String[][] bookPages = { {
 			"for a list of all commands do /dz_help" },
@@ -122,9 +125,9 @@ public class Listeners implements Listener {
 
 		if(plot.type == Type.HOSPITAL && event.getClickedBlock().getType().equals(Material.CHEST)) {
 			event.setCancelled(true);
-
+			makeNewHospitalInv();
 			player.openInventory(hinv);
-			player.sendMessage("Working");
+			//player.sendMessage("Working");
 		}
 		if(staff.size() == 0) {
 			player.sendMessage("No staff here");
@@ -132,18 +135,58 @@ public class Listeners implements Listener {
 
 
 		if (staff.size() == 0) return;
-		player.sendMessage("test");
+		//player.sendMessage("test");
 	}
+
+	@EventHandler
+	public void onClick(InventoryClickEvent event) {
+		if(!event.getClickedInventory().equals(hinv)) {
+			event.setCancelled(false);
+			return;
+		}
+		if(event.getCurrentItem() == null) return;
+		if(event.getCurrentItem().getItemMeta() == null) return;
+		Player player = (Player) event.getWhoClicked();
+
+		if(event.getSlot() == 22) {
+			if(!hospitalGold) event.setCancelled(true);
+			return;
+		}
+
+		if(event.getSlot() == 53) {
+			player.closeInventory();
+		}
+		event.setCancelled(true);
+		//while (true) {
+			if(event.getInventory().getItem(40).equals(Material.GOLD_INGOT)) {
+				hospitalGold = true;
+			}
+		//}
+	}
+
+	//GUI
 
 	public void makeNewHospitalInv() {
 		int slot = 54;
 		hinv = Bukkit.createInventory(null, slot, ChatColor.GOLD + "Hospital");
 
 		ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+		ItemMeta fmeta = filler.getItemMeta();
+		fmeta.setDisplayName("");
+		filler.setItemMeta(fmeta);
+		ItemStack more = new ItemStack(Material.ORANGE_CONCRETE);
+		ItemStack barrier = new ItemStack(Material.BARRIER);
+		ItemMeta bmeta = barrier.getItemMeta();
+		bmeta.setDisplayName("Close");
+		barrier.setItemMeta(bmeta);
+		ItemMeta moremeta = more.getItemMeta();
 		//hinv.setItem(0, filler);
 		for(int i = 0; i < slot - 1; i++) {
-			if(i == 53) {
-				ItemStack barrier = new ItemStack(Material.BARRIER);
+			if(i == 53 || i == 22 || i == 40) {
+				moremeta.setDisplayName("Heal");
+				more.setItemMeta(moremeta);
+				hinv.setItem(22, more);
+
 				hinv.setItem(53, barrier);
 				i++;
 			}
