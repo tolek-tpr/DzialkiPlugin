@@ -148,20 +148,15 @@ public class Listeners implements Listener {
 		if(event.getCurrentItem().getItemMeta() == null) return;
 		Player player = (Player) event.getWhoClicked();
 
-		if(event.getSlot() == 22) {
-			if(!hospitalGold) event.setCancelled(true);
-			return;
-		}
-
 		if(event.getSlot() == 53) {
 			player.closeInventory();
 		}
-		event.setCancelled(true);
-		//while (true) {
-			if(event.getInventory().getItem(40).equals(Material.GOLD_INGOT)) {
-				hospitalGold = true;
+		if(event.getSlot() == 40) {
+			if(event.getCurrentItem().equals(Material.GOLD_INGOT)) {
+				player.sendMessage("testAAAA");
 			}
-		//}
+		}
+		event.setCancelled(true);
 	}
 
 	//GUI
@@ -174,19 +169,13 @@ public class Listeners implements Listener {
 		ItemMeta fmeta = filler.getItemMeta();
 		fmeta.setDisplayName("");
 		filler.setItemMeta(fmeta);
-		ItemStack more = new ItemStack(Material.ORANGE_CONCRETE);
 		ItemStack barrier = new ItemStack(Material.BARRIER);
 		ItemMeta bmeta = barrier.getItemMeta();
 		bmeta.setDisplayName("Close");
 		barrier.setItemMeta(bmeta);
-		ItemMeta moremeta = more.getItemMeta();
 		//hinv.setItem(0, filler);
 		for(int i = 0; i < slot - 1; i++) {
-			if(i == 53 || i == 22 || i == 40) {
-				moremeta.setDisplayName("Heal");
-				more.setItemMeta(moremeta);
-				hinv.setItem(22, more);
-
+			if(i == 53 || i == 40) {
 				hinv.setItem(53, barrier);
 				i++;
 			}
