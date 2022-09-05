@@ -14,3 +14,7 @@ A Minecraft plugin to claim, protect, and manage access to land plots.
 - `getlist` - prints a list of all claimed land plots
 - `dz_max_size number` - changes the max size of every plot (default 100 x 100)
 - `dz_max_plots number` - changes the max number of plots a user can have (default 2)
+
+
+
+

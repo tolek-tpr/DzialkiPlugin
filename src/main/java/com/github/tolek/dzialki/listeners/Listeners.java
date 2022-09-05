@@ -33,6 +33,7 @@ public class Listeners implements Listener {
 
 	private PlotManager plots;
 	private Inventory hinv;
+	private Inventory eagency;
 
 	private HashMap<String, Plot> previousPlots = new HashMap<String, Plot>();
 
@@ -152,8 +153,9 @@ public class Listeners implements Listener {
 			player.closeInventory();
 		}
 		if(event.getSlot() == 40) {
-			if(event.getCurrentItem().equals(Material.GOLD_INGOT)) {
-				player.sendMessage("testAAAA");
+			if(event.getCurrentItem().getType().equals(Material.GOLD_INGOT)) {
+				player.setHealth(20);
+				event.getCurrentItem().setType(Material.AIR);
 			}
 		}
 		event.setCancelled(true);
@@ -181,6 +183,31 @@ public class Listeners implements Listener {
 			}
 			hinv.setItem(i, filler);
 		}
+	}
+
+	public void makeNewEstateInv() {
+		int slot = 54;
+		eagency = Bukkit.createInventory(null, slot, ChatColor.GOLD + "Estate Agency");
+
+		ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+		ItemMeta fmeta = filler.getItemMeta();
+		fmeta.setDisplayName("");
+		filler.setItemMeta(fmeta);
+
+		ItemStack barrier = new ItemStack(Material.BARRIER);
+		ItemMeta bmeta = barrier.getItemMeta();
+		bmeta.setDisplayName("Close");
+		barrier.setItemMeta(bmeta);
+
+		for(int i = 0; i < slot - 1; i++) {
+			if(i == 53 || i == 40) {
+				eagency.setItem(53, barrier);
+				i++;
+			}
+			eagency.setItem(i, filler);
+		}
+
+
 	}
 
 }
